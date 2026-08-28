@@ -1,4 +1,3 @@
-```python
 import streamlit as st
 import pandas as pd
 import seaborn as sns
@@ -1260,4 +1259,3 @@ else:
         "👆 Upload a CSV or Excel stock-market dataset "
         "to begin analysis."
     )
-```
