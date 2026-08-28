@@ -585,9 +585,32 @@ if uploaded_file is not None:
         include=["number"]
     ).columns.tolist()
 
+    st.sidebar.subheader("📌 Features")
 
-    if chart_select != "None":
-        feature_selection = st.sidebar.multiselect(...)
+    if chart_select in [
+        "Line Plot",
+        "Scatter Plot",
+        "Histogram",
+        "Box Plot",
+        "Candlestick",
+        "Area Chart",
+        "Volume Chart",
+        "Daily Returns",
+        "Moving Average",
+        "Bollinger Bands",
+        "Correlation Heatmap",
+        "ECDF Plot",
+        "Funnel Plot"
+    ]:
+        feature_selection = st.sidebar.multiselect(
+            "Select numerical features",
+            options=numeric_cols,
+            default=(
+                ["Close"]
+                if "Close" in numeric_cols
+                else numeric_cols[:1]
+            )
+        )
     else:
         feature_selection = []
 
