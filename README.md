@@ -639,10 +639,6 @@ Contains the Python dependencies required by the application.
 
 Sample stock-market dataset used for testing and demonstration.
 
-### `Trade_Trendz Report.pdf`
-
-Project documentation/report.
-
 ---
 
 # 💻 Run Locally
