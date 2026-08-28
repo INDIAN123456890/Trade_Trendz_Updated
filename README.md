@@ -1,134 +1,138 @@
 # 📈 Trade Trendz
 
-**Trade Trendz** is an interactive stock market analysis and visualization application built with **Python, Pandas, Streamlit, Seaborn, and Plotly**.
+> **Interactive Stock Market Analysis & Visualization Dashboard**
 
-The application allows users to upload stock-market datasets in **CSV, XLSX, or XLS format**, automatically preprocesses and validates the uploaded data, and provides interactive visualizations for exploring stock price and trading-volume trends.
+**Trade Trendz** is an interactive stock-market analysis application built with **Python, Pandas, Streamlit, Plotly, and Seaborn**.
 
-> **Note:** The application is designed primarily around stock-market datasets containing columns such as `Date`, `Open`, `High`, `Low`, `Close`, `Adj Close`, and `Volume`.
+The application allows users to upload their own stock-market datasets, automatically validate and preprocess the data, select a custom analysis period, and explore the data through multiple interactive visualizations and technical-analysis tools.
 
----
-
-## 🚀 Live Application
-
-**Live Demo:**
+🔴 **Live Application:**
 https://tradetrendz.streamlit.app/
 
+🟢 **Source Code:**
+https://github.com/INDIAN123456890/Trade_Trendz_Updated
+
 ---
 
-# 🎯 Project Objective
+# 🎯 Project Overview
 
-Stock-market datasets can contain missing values, invalid numerical values, duplicate records, incorrectly formatted dates, or inconsistent OHLC values.
+Trade Trendz started as a simple stock-market visualization project and has been enhanced into an interactive data-analysis application.
 
-Trade Trendz introduces a preprocessing layer before visualization so that the uploaded dataset is checked and cleaned before being used for analysis.
+Instead of assuming that the uploaded dataset is already clean, the application performs a preprocessing and validation stage before the data reaches the visualization layer.
 
-The project focuses on:
+The application is designed to answer questions such as:
 
-* Data ingestion
-* Data validation
-* Data preprocessing
-* Missing-value handling
-* Data-type conversion
-* Invalid-value detection
-* OHLC consistency validation
-* Duplicate removal
-* Chronological sorting
-* Interactive data visualization
-* Exploratory stock-market analysis
+* How has a stock's price changed over a selected period?
+* How are Open, High, Low and Close prices distributed?
+* What is the relationship between different numerical variables?
+* How does trading volume change over time?
+* What are the daily returns?
+* How does the moving average compare with the closing price?
+* How does price volatility behave through Bollinger Bands?
+* How strongly are different numerical variables correlated?
+* What happens when the analysis period or data frequency is changed?
+
+---
+
+# 🚀 Live Demo
+
+### Try Trade Trendz
+
+👉 **https://tradetrendz.streamlit.app/**
+
+The application accepts user-uploaded:
+
+* `.csv`
+* `.xlsx`
+* `.xls`
+
+files.
+
+Users are **not restricted to the sample Google stock dataset**. The analysis period is dynamically determined from the dates present in the uploaded dataset.
 
 ---
 
 # 🏗️ Application Workflow
 
 ```text
-                  User
-                   │
-                   ▼
-          Upload CSV / XLSX / XLS
-                   │
-                   ▼
-          ┌──────────────────┐
-          │ File Validation  │
-          └────────┬─────────┘
-                   │
-                   ▼
-          ┌──────────────────┐
-          │ Data Validation  │
-          └────────┬─────────┘
-                   │
-                   ▼
-          ┌─────────────────────────┐
-          │ Data Preprocessing      │
-          │                         │
-          │ • Remove empty rows     │
-          │ • Remove duplicates     │
-          │ • Validate Date         │
-          │ • Convert data types    │
-          │ • Handle missing values │
-          │ • Validate prices       │
-          │ • Validate Volume       │
-          │ • Validate OHLC         │
-          └────────────┬────────────┘
-                       │
-                       ▼
-              Cleaned Dataset
-                       │
-                       ▼
-             Chronological Sorting
-                       │
-                       ▼
-             Date Range Filtering
-                       │
-                       ▼
-             Interactive Analysis
-                       │
-                       ▼
-        ┌─────────────────────────────┐
-        │       Visualizations        │
-        │                             │
-        │ • Scatter Plot              │
-        │ • Line Plot                 │
-        │ • Histogram                 │
-        │ • Box Plot                  │
-        │ • Funnel Plot               │
-        │ • ECDF Plot                 │
-        └─────────────────────────────┘
+                    USER
+                     │
+                     ▼
+             Upload Dataset
+              CSV / XLSX / XLS
+                     │
+                     ▼
+            ┌─────────────────┐
+            │ File Validation │
+            └────────┬────────┘
+                     │
+                     ▼
+          ┌──────────────────────┐
+          │ Data Preprocessing   │
+          │                      │
+          │ • Empty rows         │
+          │ • Duplicates         │
+          │ • Date validation    │
+          │ • Type conversion    │
+          │ • Missing values     │
+          │ • Invalid values     │
+          │ • OHLC validation    │
+          └──────────┬───────────┘
+                     │
+                     ▼
+               Clean Dataset
+                     │
+                     ▼
+             Chronological Sort
+                     │
+                     ▼
+             Custom Date Range
+                     │
+                     ▼
+             Analysis Frequency
+                     │
+                     ▼
+          ┌──────────────────────┐
+          │ Interactive Analysis │
+          └──────────┬───────────┘
+                     │
+          ┌──────────┼──────────┐
+          ▼          ▼          ▼
+     Visualizations  Technical  Statistics
+                     Analysis
 ```
 
 ---
 
-# 🧹 Data Preprocessing
+# 🧹 Data Preprocessing & Validation
 
-One of the major improvements in the project is the preprocessing and validation stage.
+One of the major improvements in the current version is the preprocessing layer.
 
-The application does **not directly visualize the uploaded data**. The data passes through a validation and cleaning pipeline first.
+Uploaded data is validated before being used for analysis.
 
-## 1. Empty Row Removal
+## 1. Empty Row Detection
 
-Completely empty rows are removed from the dataset.
+Completely empty rows are removed.
 
 ```python
 df.dropna(how="all")
 ```
 
-This prevents blank records from affecting analysis and visualizations.
+This prevents blank records from affecting the analysis.
 
 ---
 
 ## 2. Duplicate Detection
 
-Duplicate rows are identified and removed.
+Duplicate records are identified and removed.
 
-```python
-df.duplicated()
-```
-
-This prevents the same market record from being counted multiple times.
+This prevents the same observation from being counted multiple times.
 
 ---
 
 ## 3. Date Validation
 
-The `Date` column is converted into a proper datetime format.
+The application checks whether a `Date` column exists and converts it to a proper datetime datatype.
 
 ```python
 pd.to_datetime(
@@ -137,13 +141,15 @@ pd.to_datetime(
 )
 ```
 
-Invalid dates are converted to `NaT` and the affected records are removed rather than inventing an artificial date.
+Invalid or missing dates are removed because an artificial date should not be created for time-series analysis.
 
 ---
 
-## 4. Numerical Data Validation
+## 4. Numerical Data Conversion
 
-The following stock-market columns are treated as numerical columns:
+The application attempts to convert stock-market numerical columns into numeric datatypes.
+
+Supported columns include:
 
 ```text
 Open
@@ -154,80 +160,76 @@ Adj Close
 Volume
 ```
 
-Values that cannot be interpreted as numbers are converted to missing values.
-
-```python
-pd.to_numeric(
-    df[column],
-    errors="coerce"
-)
-```
+Invalid numerical values are converted to missing values and handled by the preprocessing pipeline.
 
 ---
 
-## 5. Missing-Value Handling
+# 🧮 Missing-Value Handling
 
-Missing numerical values are replaced using the **mean of their respective column**.
+Missing numerical values are replaced with the **mean of their respective column**.
 
 For example:
 
 ```text
-Open:
+Open
+────
 100
 102
 NaN
 104
 ```
 
-The missing value is replaced using:
+The missing value is replaced by:
 
 ```text
 Mean(Open)
 ```
 
-The same approach is applied to the available numerical columns.
+This approach is applied independently to the available numerical columns.
 
-This provides a simple and consistent imputation strategy for the project.
+The application also reports the preprocessing operations performed on the dataset.
 
 ---
 
-## 6. Invalid Price Detection
+# ⚠️ Invalid Value Detection
 
-Stock prices should not normally contain zero or negative values.
+The application checks stock-market-specific numerical constraints.
 
-Therefore, the application checks:
+## Price Validation
+
+The following price columns should contain positive values:
 
 ```text
-Open > 0
-High > 0
-Low > 0
-Close > 0
-Adj Close > 0
+Open
+High
+Low
+Close
+Adj Close
 ```
 
-If an invalid non-positive value is detected, it is converted into a missing value and subsequently handled through mean imputation.
+Values that are zero or negative are treated as invalid.
 
 ---
 
-## 7. Volume Validation
+## Volume Validation
 
 Trading volume is expected to be positive.
 
-The application therefore checks:
+Therefore:
 
 ```text
-Volume > 0
+Volume <= 0
 ```
 
-Invalid non-positive values are treated as missing and replaced using the column mean.
+is treated as an invalid value.
 
 ---
 
 # 📊 OHLC Validation
 
-The application also performs domain-specific validation of stock-market data.
+The application performs domain-specific validation for OHLC stock data.
 
-For a valid OHLC record:
+For a valid stock record:
 
 ```text
 High >= Open
@@ -239,200 +241,353 @@ Low <= Close
 Low <= High
 ```
 
-For example, this would be an invalid record:
+For example:
 
 ```text
-Open   = 100
-High   = 90
-Low    = 95
-Close  = 105
+Open  = 100
+High  = 90
+Low   = 95
+Close = 105
 ```
 
-because:
+is inconsistent because:
 
 ```text
 High < Open
 High < Close
 ```
 
-When an invalid OHLC relationship is detected, the OHLC values for that record are marked as missing and subsequently handled by the preprocessing stage.
-
-This prevents obviously inconsistent stock-price records from being directly visualized.
-
----
-
-# 📅 Chronological Ordering
-
-After preprocessing, the dataset is sorted by:
-
-```text
-Date
-```
-
-This is particularly important for stock-market time-series analysis because chronological ordering allows trends to be interpreted correctly.
+The application detects such records and marks the OHLC values as missing before applying the missing-value handling process.
 
 ---
 
 # 📋 Preprocessing Report
 
-The application provides a preprocessing report after the dataset has been uploaded.
+The application provides a preprocessing report so users can understand what happened to their dataset.
 
-The report can indicate operations such as:
+Examples include:
 
 ```text
 ✓ No duplicate rows found.
 ✓ Date column validated successfully.
-✓ Open: replaced 4 missing values with mean.
-✓ High: replaced 2 missing values with mean.
-✓ Low: replaced 4 missing values with mean.
-✓ Close: replaced 3 missing values with mean.
-✓ Adj Close: replaced 2 missing values with mean.
-✓ Volume: replaced 4 missing values with mean.
+✓ Open: replaced missing values with mean.
+✓ High: replaced missing values with mean.
+✓ Close: replaced invalid values with mean.
 ✓ OHLC relationships validated successfully.
 ✓ Dataset sorted chronologically by Date.
-✓ Final validation passed: no missing values remain.
+✓ Final validation passed.
 ```
 
-This makes the preprocessing process transparent instead of silently modifying the uploaded dataset.
+This makes the cleaning process transparent instead of silently modifying the dataset.
+
+---
+
+# 📅 Dynamic Time-Range Analysis
+
+The application **does not use a fixed date range**.
+
+The available date range is automatically determined from the uploaded dataset.
+
+For example, if a dataset contains:
+
+```text
+2010 → 2015
+```
+
+the user can select any period within:
+
+```text
+2010 → 2015
+```
+
+If another dataset contains:
+
+```text
+2020 → 2025
+```
+
+the available analysis range automatically changes to:
+
+```text
+2020 → 2025
+```
+
+This makes Trade Trendz suitable for user-provided datasets rather than restricting analysis to the sample data.
+
+Users can select:
+
+* Start date
+* End date
+
+from the sidebar.
+
+---
+
+# 🗓️ Analysis Frequency
+
+Users can also choose how the data should be analyzed.
+
+Available options:
+
+```text
+Original
+Daily
+Weekly
+Monthly
+```
+
+For example:
+
+```text
+Original → Raw observations
+
+Weekly → Weekly aggregated values
+
+Monthly → Monthly aggregated values
+```
+
+This allows users to analyze both short-term and longer-term trends.
 
 ---
 
 # 📈 Visualizations
 
-After preprocessing, users can select different visualization techniques from the sidebar.
-
-## Scatter Plot
-
-Used to examine relationships between numerical stock-market variables.
-
-Possible variables include:
-
-* Open
-* High
-* Low
-* Close
-* Adj Close
-* Volume
-
-The `Date` column is used as the time dimension.
+Trade Trendz currently provides several visualization options.
 
 ---
 
-## Line Plot
+## 1. Line Plot
 
-The line plot is particularly useful for analyzing stock-price movement over time.
+Used to analyze stock-price movement over time.
 
-Users can select multiple numerical features.
-
-Example:
+Users can select multiple numerical features such as:
 
 ```text
-Date → Close
-Date → Open
-Date → High
-Date → Low
+Open
+High
+Low
+Close
+Adj Close
+Volume
 ```
 
-This helps identify trends and changes in stock prices.
+Useful for identifying:
+
+* Trends
+* Directional movement
+* Long-term patterns
+* Changes between variables
 
 ---
 
-## Histogram
+## 2. Scatter Plot
 
-Histograms are used to understand the distribution of numerical variables.
+Allows users to select their own X and Y variables.
 
-They can be used to analyze:
+For example:
+
+```text
+Close vs Volume
+```
+
+or:
+
+```text
+Open vs Close
+```
+
+This can be used to explore relationships between numerical variables.
+
+---
+
+## 3. Histogram
+
+Histograms show the distribution of selected numerical variables.
+
+Useful for analyzing:
 
 * Price distributions
 * Trading-volume distributions
-* Variability in stock-market values
+* Data concentration
+* Spread of observations
 
 ---
 
-## Box Plot
+## 4. Box Plot
 
-Box plots provide a compact view of:
+Box plots provide information about:
 
 * Median
 * Quartiles
 * Distribution
 * Potential extreme observations
 
-They can be used for variables such as `Close`, `Open`, or `Volume`.
-
 ---
 
-## Funnel Plot
+## 5. Candlestick Chart
 
-The application also retains a funnel visualization option from the original project.
-
-Although funnel charts are not naturally designed for stock-market time-series analysis, the functionality is maintained as part of the project's interactive visualization options.
-
----
-
-## ECDF Plot
-
-The Empirical Cumulative Distribution Function (ECDF) provides a way to examine the cumulative distribution of numerical variables.
-
-It can help understand how observations are distributed across different price or volume ranges.
-
----
-
-# 🖥️ Application Features
-
-### 📂 Flexible Data Upload
-
-Supported formats:
+A dedicated stock-market candlestick visualization is available using:
 
 ```text
-CSV
-XLSX
-XLS
+Open
+High
+Low
+Close
 ```
 
-### 🧹 Automated Preprocessing
+This provides a more traditional financial-market representation of price movement.
 
-The application automatically handles:
+---
 
-* Empty rows
-* Duplicate rows
-* Missing numerical values
-* Invalid numerical values
-* Invalid dates
-* Non-positive prices
-* Invalid trading volume
-* Invalid OHLC relationships
+## 6. Area Chart
 
-### 📊 Dataset Summary
+Area charts provide another way to visualize price movement over time while emphasizing the magnitude of the selected values.
 
-The dashboard displays:
+---
 
-* Number of rows
-* Number of columns
-* Remaining missing values
-* Duplicate rows
+## 7. Volume Chart
 
-### 📅 Date Filtering
+Trading volume can be visualized separately to understand activity across the selected period.
 
-Users can select:
+---
+
+## 8. Daily Returns
+
+The application calculates percentage changes in closing price:
 
 ```text
-Start Date
-End Date
+Daily Return =
+(Closeₜ / Closeₜ₋₁ - 1) × 100
 ```
 
-to analyze a specific period.
+This helps analyze daily price movement rather than absolute price.
 
-### 📈 Interactive Charts
+---
 
-Available visualizations include:
+## 9. Moving Average
 
-* Scatter Plot
-* Line Plot
-* Histogram
-* Box Plot
-* Funnel Plot
-* ECDF Plot
+Users can configure a moving-average window.
+
+Examples:
+
+```text
+7-period
+20-period
+50-period
+100-period
+200-period
+```
+
+The moving average can help smooth short-term fluctuations and highlight broader trends.
+
+---
+
+## 10. Bollinger Bands
+
+The application provides Bollinger Band analysis using:
+
+```text
+Middle Band = Moving Average
+
+Upper Band =
+Moving Average + 2 × Rolling Standard Deviation
+
+Lower Band =
+Moving Average - 2 × Rolling Standard Deviation
+```
+
+This provides a basic view of price volatility around a moving average.
+
+---
+
+## 11. Correlation Heatmap
+
+The correlation heatmap shows relationships between numerical variables.
+
+For example:
+
+```text
+Open
+High
+Low
+Close
+Adj Close
+Volume
+```
+
+This helps identify strongly or weakly correlated variables.
+
+---
+
+## 12. ECDF Plot
+
+The Empirical Cumulative Distribution Function helps understand the cumulative distribution of numerical variables.
+
+---
+
+## 13. Funnel Plot
+
+The original project included a funnel visualization and this functionality has been retained.
+
+Although funnel charts are not specifically designed for stock-market time-series data, it remains available as an additional visualization option.
+
+---
+
+# ⚙️ Customization Options
+
+The sidebar provides several controls for customizing the analysis.
+
+### Chart Selection
+
+Users can choose from multiple visualization types.
+
+### Date Range
+
+Users can select their own analysis period based on the dates available in the uploaded dataset.
+
+### Analysis Frequency
+
+```text
+Original
+Daily
+Weekly
+Monthly
+```
+
+### Feature Selection
+
+For applicable charts, users can select which numerical columns they want to visualize.
+
+### Moving Average
+
+Users can select a moving-average period.
+
+### Chart Height
+
+Chart height can be adjusted according to user preference.
+
+### Markers
+
+Users can enable or disable markers on applicable charts.
+
+### Logarithmic Y-axis
+
+A logarithmic Y-axis can be enabled for appropriate analyses where large differences in magnitude make a linear scale difficult to interpret.
+
+---
+
+# 📊 Dataset Summary
+
+After preprocessing, the application provides a quick summary containing:
+
+```text
+Number of Rows
+Number of Columns
+Remaining Missing Values
+Duplicate Rows
+```
+
+This provides an immediate overview of the cleaned dataset.
 
 ---
 
@@ -445,8 +600,8 @@ Available visualizations include:
 | Streamlit  | Interactive web application         |
 | Plotly     | Interactive visualizations          |
 | Seaborn    | Visualization support               |
-| OpenPyXL   | Excel file processing               |
-| xlrd       | Legacy Excel file support           |
+| OpenPyXL   | XLSX file processing                |
+| xlrd       | XLS file support                    |
 
 ---
 
@@ -458,33 +613,45 @@ Trade_Trendz/
 ├── app.py
 ├── requirements.txt
 ├── README.md
-├── GOOGL.xlsx
-└── ...
+└── GOOGL.xlsx
 ```
 
 ### `app.py`
 
-Contains the Streamlit application, preprocessing pipeline, validation logic, date filtering, and visualization functionality.
+Contains:
+
+* Streamlit interface
+* File upload
+* Data preprocessing
+* Data validation
+* Missing-value handling
+* OHLC validation
+* Date filtering
+* Frequency aggregation
+* Visualization logic
+* Technical-analysis calculations
 
 ### `requirements.txt`
 
-Contains the Python dependencies required to run the application.
+Contains the Python dependencies required by the application.
 
 ### `GOOGL.xlsx`
 
-Sample Google stock-market dataset used for testing the application.
+Sample stock-market dataset used for testing and demonstration.
+
+### `Trade_Trendz Report.pdf`
+
+Project documentation/report.
 
 ---
 
-# ⚙️ Installation
+# 💻 Run Locally
 
 ## 1. Clone the Repository
 
 ```bash
 git clone https://github.com/INDIAN123456890/Trade_Trendz.git
 ```
-
-Navigate into the project directory:
 
 ```bash
 cd Trade_Trendz
@@ -500,8 +667,6 @@ cd Trade_Trendz
 python -m venv venv
 ```
 
-Activate it:
-
 ```bash
 venv\Scripts\activate
 ```
@@ -511,8 +676,6 @@ venv\Scripts\activate
 ```bash
 python3 -m venv venv
 ```
-
-Activate it:
 
 ```bash
 source venv/bin/activate
@@ -528,78 +691,47 @@ pip install -r requirements.txt
 
 ---
 
-# ▶️ Run the Application Locally
-
-Execute:
+## 4. Run Streamlit
 
 ```bash
 streamlit run app.py
 ```
 
-Streamlit will provide a local URL similar to:
-
-```text
-http://localhost:8501
-```
-
-Open the URL in your browser.
+The application will be available locally through the Streamlit URL shown in the terminal.
 
 ---
 
-# ☁️ Deploying on Streamlit Community Cloud
+# ☁️ Deployment
 
-The application can be deployed using Streamlit Community Cloud.
+Trade Trendz is deployed using **Streamlit Community Cloud**.
 
-### Step 1
+### Live Application
 
-Push the project to GitHub.
+https://tradetrendz.streamlit.app/
 
-Make sure the repository contains:
+The deployment uses:
 
 ```text
+GitHub Repository
+        ↓
+Streamlit Community Cloud
+        ↓
 app.py
+        ↓
 requirements.txt
+        ↓
+Live Web Application
 ```
 
-### Step 2
-
-Open Streamlit Community Cloud and connect your GitHub account.
-
-### Step 3
-
-Select:
-
-```text
-Repository → Trade_Trendz
-```
-
-### Step 4
-
-Set the main application file as:
-
-```text
-app.py
-```
-
-### Step 5
-
-Deploy the application.
-
-Streamlit Cloud will install the dependencies specified in:
-
-```text
-requirements.txt
-```
-
-and start the application.
+The GitHub repository serves as the source for the application code and project files.
 
 ---
 
-# 🧪 Testing the Preprocessing
+# 🧪 Testing the Application
 
-For testing, the application should be provided with datasets containing different types of problems.
+The application should be tested with datasets containing different data-quality scenarios.
 
-### Test Case 1 — Missing Values
+### Missing Values
 
 ```text
 Open = NaN
@@ -607,54 +739,47 @@ Close = NaN
 Volume = NaN
 ```
 
-Expected behavior:
+Expected:
 
 ```text
-Missing values → Column mean
-```
-
----
-
-### Test Case 2 — Invalid Numeric Values
-
-```text
-Open = "ABC"
-Close = "XYZ"
-```
-
-Expected behavior:
-
-```text
-Invalid values
-      ↓
-NaN
+Missing values
       ↓
 Column mean
 ```
 
----
+### Invalid Numeric Values
 
-### Test Case 3 — Invalid Price
+```text
+Close = "ABC"
+```
+
+Expected:
+
+```text
+Invalid numeric value
+        ↓
+Missing value
+        ↓
+Column mean
+```
+
+### Invalid Prices
 
 ```text
 Close = -100
 ```
 
-Expected behavior:
+Expected:
 
 ```text
--100
- ↓
-Invalid
- ↓
-NaN
- ↓
+Invalid price
+     ↓
+Missing value
+     ↓
 Column mean
 ```
 
----
-
-### Test Case 4 — Invalid OHLC
+### Invalid OHLC
 
 ```text
 Open  = 100
@@ -663,106 +788,132 @@ Low   = 90
 Close = 105
 ```
 
-Expected behavior:
+Expected:
 
 ```text
 Invalid OHLC relationship
-          ↓
+           ↓
 OHLC values marked as missing
-          ↓
+           ↓
 Mean imputation
 ```
 
----
+### Duplicate Records
 
-### Test Case 5 — Duplicate Records
-
-```text
-Same row appears multiple times
-```
-
-Expected behavior:
+Expected:
 
 ```text
-Duplicate records → Removed
+Duplicate rows
+      ↓
+Removed
 ```
 
 ---
 
-# ⚠️ Important Data Considerations
+# ⚠️ Important Considerations
 
-Mean imputation is intentionally used in this project as a straightforward preprocessing strategy.
+## Mean Imputation
 
-However, for production-grade financial time-series systems, other techniques may be more appropriate depending on the analytical objective.
+Mean imputation is used because it provides a simple and transparent strategy for this project.
 
-For example:
+However, financial time-series data may require more sophisticated techniques depending on the use case, such as:
 
 * Forward filling
-* Backward filling
 * Interpolation
 * Rolling statistics
 * Time-series-specific imputation
 
-Similarly, extreme stock-price movements should **not automatically be treated as errors**. A large price movement can represent a genuine market event.
+---
 
-Therefore, this project focuses on detecting clearly invalid or inconsistent values rather than automatically removing statistical outliers.
+## Outliers
+
+Trade Trendz does **not automatically remove extreme values**.
+
+This is intentional.
+
+A large price movement or volume spike may represent a genuine market event rather than a data-quality problem.
+
+Automatically removing such observations could therefore remove meaningful financial information.
 
 ---
 
-# 🔒 Data Privacy
+## Technical Indicators Are Analytical Tools
 
-Trade Trendz processes the uploaded dataset within the application session for analysis and visualization.
+Moving averages and Bollinger Bands are provided for exploratory analysis.
 
-Users should avoid uploading datasets containing confidential, proprietary, or personally identifiable information.
+They should not be interpreted as guaranteed trading signals or financial advice.
 
 ---
 
 # 🔮 Future Improvements
 
-Potential improvements include:
+Possible future additions include:
 
-* Candlestick charts
-* Moving averages
-* Technical indicators
-* RSI analysis
-* MACD analysis
-* Bollinger Bands
-* Trading-volume analysis
-* Correlation analysis
-* Interactive dashboards
-* Stock comparison
+* 📊 Additional technical indicators
+* RSI
+* MACD
+* Stochastic Oscillator
+* ATR
+* More candlestick customization
+* Stock-to-stock comparison
+* Advanced volatility analysis
 * Automated anomaly detection
+* Interactive KPI dashboard
 * Download cleaned dataset
-* Additional preprocessing strategies
+* Export analysis reports
+* Financial API integration
+* Automated data ingestion
 * Database integration
-* Automated data ingestion from financial APIs
+* Authentication
+* Portfolio-level analysis
 
 ---
 
-# 📌 Learning Outcomes
+# 📚 Learning Outcomes
 
-This project demonstrates practical understanding of:
+This project provided practical experience with:
 
 * Python
 * Pandas
 * Data cleaning
 * Data preprocessing
-* Missing-value handling
+* Missing-value imputation
 * Data validation
 * Data-type conversion
 * Domain-specific validation
-* Time-series data handling
+* Time-series data
 * Exploratory Data Analysis
-* Data visualization
-* Streamlit application development
-* Interactive dashboard development
-* Basic deployment using Streamlit Community Cloud
+* Statistical visualization
+* Interactive visualization
+* Streamlit
+* Dashboard development
+* Application deployment
+
+More importantly, the project demonstrates the progression from:
+
+```text
+Raw Dataset
+     ↓
+Data Cleaning
+     ↓
+Data Validation
+     ↓
+Data Transformation
+     ↓
+Exploratory Analysis
+     ↓
+Visualization
+     ↓
+Interactive Application
+     ↓
+Cloud Deployment
+```
 
 ---
 
 # 👨‍💻 Author
 
-**Sahil Salunke**
+### Sahil Salunke
 
 GitHub:
 https://github.com/INDIAN123456890
@@ -771,4 +922,10 @@ https://github.com/INDIAN123456890
 
 # ⭐ Support
 
-If you find this project useful, consider giving the repository a ⭐ on GitHub.
+If you find Trade Trendz useful or interesting, consider giving the repository a ⭐ on GitHub.
+
+**Live Demo:**
+https://tradetrendz.streamlit.app/
+
+**Source Code:**
+https://github.com/INDIAN123456890/Trade_Trendz_Updated
