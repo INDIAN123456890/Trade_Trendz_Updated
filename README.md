@@ -11,9 +11,7 @@ The application allows users to upload stock-market datasets in **CSV, XLSX, or 
 ## 🚀 Live Application
 
 **Live Demo:**
-https://charitychain-beta.vercel.app/
-
-> Replace the above URL with the deployed Trade Trendz Streamlit URL once the Streamlit Cloud deployment is completed.
+https://tradetrendz.streamlit.app/
 
 ---
 
